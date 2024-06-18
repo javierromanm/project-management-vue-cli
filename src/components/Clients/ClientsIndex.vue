@@ -1,9 +1,11 @@
 <script setup>
     import { ref, onMounted } from 'vue'
     import api from '@axios'
+    import AuthenticatedLayout from '@/components/Layouts/AuthenticatedLayout.vue'
+    
     const clients = ref([])
 
-    const fetchClients = async() => {
+    const fetchClients = async () => {
         try {
             const token = localStorage.getItem('userToken')
             const response = await api.get('/api/clients', {
@@ -22,56 +24,58 @@
 </script>
 
 <template>
-    <div class="flex flex-col">
-        <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-            <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="overflow-hidden">
-                <table class="min-w-full">
-                    <thead class="bg-white border-b">
-                        <tr>
-                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                            Id
-                        </th>
-                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                            Name
-                        </th>
-                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                            Last name
-                        </th>
-                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                            Email
-                        </th>
-                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                            Telephone
-                        </th>
-                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                            Observations
-                        </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="client in clients.data" :key="client.id" class="bg-gray-100 border-b">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ client.id }}</td>
-                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                {{ client.name }}
-                            </td>
-                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                {{ client.Last_name }}
-                            </td>
-                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                {{ client.email }}
-                            </td>
-                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                {{ client.telephone }}
-                            </td>
-                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                {{ client.observations }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <AuthenticatedLayout>
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+                <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                    <table class="min-w-full">
+                        <thead class="bg-white border-b">
+                            <tr>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                Id
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                Name
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                Last name
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                Email
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                Telephone
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                Observations
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="client in clients.data" :key="client.id" class="bg-gray-100 border-b">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ client.id }}</td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                    {{ client.name }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                    {{ client.last_name }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                    {{ client.email }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                    {{ client.telephone }}
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                    {{ client.observations }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
             </div>
         </div>
-    </div>
+    </AuthenticatedLayout>
 </template>  
