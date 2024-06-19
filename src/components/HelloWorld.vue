@@ -5,7 +5,7 @@
 <template>
   <AuthenticatedLayout>
     <div class="hello">
-      <h1>{{ msg }}</h1>
+      <h1 class="text-2xl font-bold text-gray-900 my-3">Home page</h1>
       <p>Home text</p>
     </div>
   </AuthenticatedLayout>

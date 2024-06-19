@@ -47,7 +47,7 @@
       </div>
     </nav>
 
-    <main class="p-5">
+    <main class="p-10">
         <slot />
     </main>
 </template>
