@@ -1,13 +1,40 @@
 <script setup>
     import AuthenticatedLayout from '@/components/Layouts/AuthenticatedLayout.vue';
     import api from '@axios'
-    import { ref } from 'vue'
-    import { useRouter } from 'vue-router'
+    import { ref, onMounted } from 'vue'
+    import { useRouter, useRoute } from 'vue-router'
 
-    const router = useRouter();
+    const router = useRouter()
+    const route = useRoute()
 
     const client = ref([])
     const errors = ref([])
+    const clientId = ref(null)
+    const url = ref(null)
+
+    const fetchClient = async () => {
+        try {
+            clientId.value = route.params.id
+            const token = localStorage.getItem('userToken')
+
+            if(clientId.value) {
+                url.value = '/api/clients/' + clientId.value + '/edit'
+            } else {
+                url.value = '/api/clients/create'
+            }
+
+            const response = await api.get(url.value, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            client.value = response.data.client
+        } catch (error) {
+            console.error('Error fetching client:', error)
+        }
+    }
+
+    onMounted(fetchClient)
 
     const storeOrUpdateClient = async () => {
         try {
@@ -20,13 +47,25 @@
                 observations: client.value.observations
             }
 
-            await api.post('/api/clients', dataClient, 
+            if(clientId.value) {
+                await api.patch('/api/clients/' + clientId.value, dataClient, 
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 })
-            router.push({name: 'clients.index'})
+                router.push({name: 'clients.index'})
+            } else {
+                await api.post('/api/clients', dataClient, 
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                router.push({name: 'clients.index'})
+            }
+
+            
             
         } catch (error) {
             errors.value = error.response.data.errors

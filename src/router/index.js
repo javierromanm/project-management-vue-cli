@@ -24,6 +24,11 @@ const routes = [
     path: '/clients/create',
     name: 'clients.create',
     component: ClientsCreateEdit
+  },
+  {
+    path: '/clients/:id/edit',
+    name: 'clients.edit',
+    component: ClientsCreateEdit
   }
 ]
 
