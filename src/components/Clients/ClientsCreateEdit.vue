@@ -148,7 +148,7 @@
             <button
                 @click="storeOrUpdateClient"
                 class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
-                Create
+                {{ clientId ? 'Update' : 'Create' }}
             </button>
         </div>
     </AuthenticatedLayout>
