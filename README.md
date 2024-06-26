@@ -1,24 +1,12 @@
-# project-management-vue-cli
+# Frontend for Project Management System
 
-## Project setup
-```
-npm install
-```
+This repository contains the frontend web application for a project management system, built with Vue CLI. It serves as the web application for managing development projects, including functionalities for administrators, clients, and developers.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+The backend repository, built with Laravel 11, can be found at https://github.com/javierromanm/project-management-api.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## YouTube Playlist
 
-### Lints and fixes files
-```
-npm run lint
-```
+You can watch the live programming process of the API and the frontend in the following YouTube playlist:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[Watch Playlist on YouTube](https://youtube.com/playlist?list=PLEIbsnqtxKPbFVfX3hybUqgY9uBm-UVLa)
+
