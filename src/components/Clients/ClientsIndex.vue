@@ -1,14 +1,31 @@
 <script setup>
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, watch } from 'vue'
     import api from '@axios'
     import AuthenticatedLayout from '@/components/Layouts/AuthenticatedLayout.vue'
+
+    import { useRouter } from 'vue-router'
+    const router = useRouter()
     
     const clients = ref([])
+
+    const search = ref(router.currentRoute.value.query.search || '')
+
+    watch(search, value => {
+        router.push({
+            path: '/clients',
+            query: {...router.currentRoute.value.query, search: value}
+        })
+
+        fetchClients()
+    })
 
     const fetchClients = async () => {
         try {
             const token = localStorage.getItem('userToken')
             const response = await api.get('/api/clients', {
+                params: {
+                    search: search.value ?? ''
+                },
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -27,6 +44,7 @@
     <AuthenticatedLayout>
         <h1 class="text-2xl font-bold text-gray-900 my-3">List of clients</h1>
         <div class="flex justify-end mb-3">
+            <input type="text" v-model="search" class="mr-3 border rounded p-2" placeholder="Search">
             <router-link
                 :to="{name: 'clients.create'}"
                 class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
